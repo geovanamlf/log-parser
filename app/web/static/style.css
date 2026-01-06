@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: 28px;
+}
+
+textarea {
+  width: 100%;
+  height: 240px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #111827;
+  color: #e2e8f0;
+  resize: vertical;
+  outline: none;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+button.secondary {
+  background: #334155;
+  margin-left: 8px;
+}
+
+#result {
+  margin-top: 16px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0b1220;
+  padding: 12px;
+  min-height: 80px;
+}
+
+.line {
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin: 6px 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  white-space: pre-wrap;
+}
+
+.line.info {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.line.warning {
+  background: rgba(234, 179, 8, 0.12);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.line.error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.line.unknown {
+  background: rgba(148, 163, 184, 0.10);
+  border: 1px solid rgba(148, 163, 184, 0.20);
+}

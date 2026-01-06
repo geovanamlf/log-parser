@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Log Parser</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Log Parser</h1>
+
+    <textarea id="logInput" placeholder="Cole seus logs aqui..."></textarea>
+
+    <div class="actions">
+      <button id="formatBtn">Formatar</button>
+      <button id="clearBtn" class="secondary">Limpar</button>
+    </div>
+
+    <div id="result"></div>
+  </main>
+
+  <script>
+    const btn = document.getElementById("formatBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const input = document.getElementById("logInput");
+    const result = document.getElementById("result");
+
+    btn.addEventListener("click", async () => {
+      result.innerHTML = "Processando...";
+
+      try {
+        const response = await fetch("/api/format", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ log_text: input.value })
+        });
+
+        if (!response.ok) {
+          result.innerHTML = "Erro ao processar logs.";
+          return;
+        }
+
+        const data = await response.json();
+
+        result.innerHTML = "";
+        data.lines.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "line " + item.level.toLowerCase();
+          div.textContent = `[${item.level}] ${item.message}`;
+          result.appendChild(div);
+        });
+      } catch (e) {
+        result.innerHTML = "Falha de rede ou servidor fora do ar.";
+      }
+    });
+
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      result.innerHTML = "";
+    });
+  </script>
+</body>
+</html>
