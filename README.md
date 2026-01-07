@@ -23,5 +23,5 @@ source venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 
-Web UI: http://127.0.0.1:8000/
-API docs: http://127.0.0.1:8000/docs
+Live demo:
+https://log-parser-m39o.onrender.com
