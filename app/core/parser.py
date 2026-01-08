@@ -1,4 +1,6 @@
-def parse_logs(log_text: str):
+from typing import List, Dict
+
+def parse_logs(log_text: str) -> List[Dict[str, str]]:
     result = []
 
     lines = log_text.splitlines()
