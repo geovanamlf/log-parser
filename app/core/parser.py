@@ -1,4 +1,7 @@
+import re
 from typing import List, Dict
+
+TIMESTAMP_PATTERN = re.compile(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\s*')
 
 def parse_logs(log_text: str) -> List[Dict[str, str]]:
     result = []
@@ -22,9 +25,7 @@ def parse_logs(log_text: str) -> List[Dict[str, str]]:
         if level != "UNKNOWN":
             message = message.replace(level, "", 1).strip()
 
-        parts = message.split()
-        if len(parts) >= 3 and "-" in parts[0] and ":" in parts[1]:
-            message = " ".join(parts[2:])
+        message = TIMESTAMP_PATTERN.sub("", message).strip()
 
         item = {
             "level": level,
@@ -35,4 +36,3 @@ def parse_logs(log_text: str) -> List[Dict[str, str]]:
         result.append(item)
 
     return result
-
