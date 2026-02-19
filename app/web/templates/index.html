@@ -16,6 +16,25 @@
       <button id="clearBtn" class="secondary">Limpar</button>
     </div>
 
+    <div id="summary" class="summary hidden">
+      <div class="summary-card total">
+        <span class="summary-label">Total</span>
+        <span class="summary-value" id="countTotal">0</span>
+      </div>
+      <div class="summary-card info">
+        <span class="summary-label">INFO</span>
+        <span class="summary-value" id="countInfo">0</span>
+      </div>
+      <div class="summary-card warning">
+        <span class="summary-label">WARNING</span>
+        <span class="summary-value" id="countWarning">0</span>
+      </div>
+      <div class="summary-card error">
+        <span class="summary-label">ERROR</span>
+        <span class="summary-value" id="countError">0</span>
+      </div>
+    </div>
+
     <div id="result"></div>
   </main>
 
@@ -24,6 +43,7 @@
     const clearBtn = document.getElementById("clearBtn");
     const input = document.getElementById("logInput");
     const result = document.getElementById("result");
+    const summary = document.getElementById("summary");
 
     btn.addEventListener("click", async () => {
       result.innerHTML = "Processando...";
@@ -42,6 +62,12 @@
 
         const data = await response.json();
 
+        document.getElementById("countTotal").textContent = data.total;
+        document.getElementById("countInfo").textContent = data.info;
+        document.getElementById("countWarning").textContent = data.warning;
+        document.getElementById("countError").textContent = data.error;
+        summary.classList.remove("hidden");
+
         result.innerHTML = "";
         data.lines.forEach(item => {
           const div = document.createElement("div");
@@ -57,6 +83,7 @@
     clearBtn.addEventListener("click", () => {
       input.value = "";
       result.innerHTML = "";
+      summary.classList.add("hidden");
     });
   </script>
 </body>
