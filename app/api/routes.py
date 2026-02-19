@@ -11,5 +11,4 @@ class LogRequest(BaseModel):
 
 @router.post("/format")
 def format_logs(payload: LogRequest):
-    parsed = parse_logs(payload.log_text)
-    return {"lines": parsed}
+    return parse_logs(payload.log_text)

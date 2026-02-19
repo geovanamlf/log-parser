@@ -3,7 +3,8 @@ from typing import List, Dict
 
 TIMESTAMP_PATTERN = re.compile(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\s*')
 
-def parse_logs(log_text: str) -> List[Dict[str, str]]:
+
+def parse_logs(log_text: str) -> Dict:
     result = []
 
     lines = log_text.splitlines()
@@ -27,12 +28,19 @@ def parse_logs(log_text: str) -> List[Dict[str, str]]:
 
         message = TIMESTAMP_PATTERN.sub("", message).strip()
 
-        item = {
+        result.append({
             "level": level,
             "message": message,
             "raw": line
-        }
+        })
 
-        result.append(item)
+    summary = {
+        "total": len(result),
+        "info": sum(1 for r in result if r["level"] == "INFO"),
+        "warning": sum(1 for r in result if r["level"] == "WARNING"),
+        "error": sum(1 for r in result if r["level"] == "ERROR"),
+        "unknown": sum(1 for r in result if r["level"] == "UNKNOWN"),
+        "lines": result
+    }
 
-    return result
+    return summary
